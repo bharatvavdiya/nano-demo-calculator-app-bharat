@@ -10,16 +10,29 @@ app.use(express.json());
 const baseRouter = express.Router();
 
 baseRouter.get('/greeting', (req, res) => {
-    return res.send('');
+    return res.send('Hello World!');
 });
 
 baseRouter.post('/add', (req, res) => {
-    res.json({ "": null });
+    const { first, second } = req.body;
+    if (!first || !second) {
+        return res.status(400).json({ error: 'Incorrect input' });
+    } else if (typeof first !== 'number' || typeof second !== 'number') {
+        return res.status(400).json({ error: 'Incorrect input' });
+    }
+    return res.json({ result: first + second });
 });
 
 
 baseRouter.post('/subtract', (req, res) => {
-    res.json({ "": null });
+
+    const { first, second } = req.body;
+    if (!first || !second) {
+        return res.status(400).json({ error: 'Incorrect input' });
+    } else if (typeof first !== 'number' || typeof second !== 'number') {
+        return res.status(400).json({ error: 'Incorrect input' });
+    }
+    return res.json({ result: first - second });
 });
 
 app.use(baseUrl, baseRouter);
